@@ -1,0 +1,62 @@
+sudo apt update - atualiza a lista de softwares
+sudo apt upgrade - instala as atualizações
+
+-> boas praticas: fazer esse procedimento de atualização pelo menos 1x por mês no servidor!
+
+sudo apt search 'nomedoapp' - para procurar apps disponíveis com esse nome
+sudo apt install 'nomedoapp' - instalar o programa
+
+clear - limpa prompt
+pwd - indica a pasta onde você está
+cd.. - volta uma pasta
+ls - lista pastas disponíveis de onde você está
+ls -l - lista as coisas em forma de lista
+ls [nomedapasta] - lista pastas diposniveis dentro dessa pasta
+mkdir - criar pasta
+rm -r 'nomedapasta' - remove pasta
+mv 'nomedapastaantiga' 'nomenovo' - renomeia pasta
+mv [pasta1]/[pastaquevaimover] - coloca pasta dentro da pasta1
+cp - copia pastas, coisas
+cp -r [nomedapasta] [pastafinal]/ - copia pastas e suas dependências
+touch - cria arquivos
+
+--------------------------------
+Permissões Linux:
+dono
+grupo
+outros
+
+exemplo: backup drwxr-xr-x
+d rwx r-x r-x
+
+|dono	|grupo	|outros	|
+|rwx	|r-x	|r-x 	|
+
+4 - 'r' - read - leitura
+2 - 'w' - write - escrever
+1 - 'x' - execute -> executar
+0 - '-' - não tem permissão
+----------------------------------
+sudo chown -R www-data:root html - muda dono da pasta (sudo pq é uma pasta do sistema)
+sudo chmod -R 775 html - muda permissões de arquivos dentro da pasta html
+
+----------------------Instalando um servidor debian-----------------------------
+sudo apt update - atualiza o os
+sudo apt upgrade - atualiza os
+sudo apt install apache2 - instala o servidor apache web
+sudo apt insall mariadb-server - instala o banco de dados
+sudo mysql -uroot -p - entra nas configurações do banco
+
+--- configurando o usuário aplicação ---
+CREATE USER aplicacao@'%' IDENTIFIED BY '123456'; - cria usuário dentro do banco com senha tal , @'%' quer dizer que pode ser acessado de qualquer maquina
+GRANT ALL PRIVILEGES ON *.* TO aplicacao@'%' WITH GRANT OPTION; - da todos os privilégios de administrador para todas os bancos e tabelas (*.*) para o usuário aplciacao
+FLUSH PRIVILEGES; - Reinicia os privilégios, tipo um refresh nas configurações ao invés de reiniciar todo o servidor
+
+--- configurando o usuário restrito ---
+CREATE USER restrito@'%' IDENTIFIED BY '123456'; - cria usuário dentro do banco com senha tal , @'%' quer dizer que pode ser acessado de qualquer maquina
+GRANT ALL PRIVILEGES ON soft1.* TO restrito@'%' WITH GRANT OPTION; - da todos os privilégios de administrador para somente o banco 'soft1' e todas suas tabelas (soft1.*) para o usuário restrito
+FLUSH PRIVILEGES; - Reinicia os privilégios, tipo um refresh nas configurações ao invés de reiniciar todo o servidor
+
+mysql -uaplicacao -p - acessa banco com o usuário aplicação 
+
+https://mariadb.com/docs/server/server-usage/basics/mariadb-advanced-sql-guide-1
